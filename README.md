@@ -4,6 +4,8 @@
 # Group Project schedule
 27.11 Monday - Lecture Test
 ## Lab Schedule
+##### Link do DOCS (wymaga zalogowania): [Link](https://wutwaw-my.sharepoint.com/:w:/g/personal/01143941_pw_edu_pl/EbsZisHjjoVFrLKtBg8yo_EBNyz9U84IapRppCMOy2x8qw?e=mwnWxJ)
+
 Lab 1 -  18/25 pazdziernik (Done)  
 Lab 2 -  >8/15 listopad<  
 Lab 3 -  22/29 listopad  
