@@ -6,9 +6,9 @@
 ## Lab Schedule
 ##### Link do DOCS (wymaga zalogowania): [Link](https://wutwaw-my.sharepoint.com/:w:/g/personal/01143941_pw_edu_pl/EbsZisHjjoVFrLKtBg8yo_EBNyz9U84IapRppCMOy2x8qw?e=mwnWxJ)
 
-Lab 1 -  18/25 pazdziernik (Done)  
-Lab 2 -  8 (15) listopad  
-Lab 3 -  22(29) listopad  
+Lab 1 -  18/25 pazdziernik (Done)    
+Lab 2 -  8 (15) listopad (Done)  
+Lab 3 -  22(29) listopad (Done)  
 Lab 4 -  6(13) grudzien  
 Lab 5 -  20 grudzien/(3 styczen)  
 <p align="center">
