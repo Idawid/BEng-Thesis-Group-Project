@@ -1,30 +1,29 @@
-<section id="hero" class="w-full h-full relative">
-<div>
-  <div id="heroTransformTarget" class="hero__transform-target mx-auto">
-    <div class="relative text-center">
-      <img class="mx-auto" src="https://cdn3.vectorstock.com/i/1000x1000/95/77/purple-arrow-growth-graph-template-vector-31819577.jpg" loading="eager" alt="">
+<section id="hero" class="w-full h-full">
+  <div>
+    <div id="heroTransformTarget" class="mx-auto">
+      <div class="relative text-center">
+        <div class="block flex flex-col mt-[20vh] mb-[20vh]">
+          <h1 class="flex-auto hero-headline-text text-10xl text-purple-500 font-extrabold leading-[0.95] inset-0 items-center justify-center">
+            Everything a trader needs.</h1>
+          <p class="mx-auto mt-3 max-w-[50vw] leading-[3vw] text-[2vw] font-bold text-slate-400 justify-center">Discover
+            powerful tools, real-time insights, and expert guidance to enhance your trading strategy and stay ahead in
+            the market.</p>
+        </div>
 
-      <img class="" src="https://uploads-ssl.webflow.com/5f8ed35013fa85618cfb8d85/5f8ee487af0c7ceb5324d7cb_hero-hands.png" loading="eager" alt="">
-      <div class="absolute block flex flex-col mt-[-10rem]">
-        <h1 class="flex-auto hero-headline-text text-10xl text-purple-500 font-extrabold leading-[0.95] inset-0 items-center justify-center">Everything a trader needs.</h1>
-        <p class="mx-auto mt-3 max-w-[50vw] leading-[3vw] text-[2vw] font-bold text-slate-400 justify-center">Discover powerful tools, real-time insights, and expert guidance to enhance your trading strategy and stay ahead in the market.</p>
+        <div class="block flex flex-col mt-[20vh] mb-[20vh]">
+          <h1 class="flex-auto hero-headline-text text-3xl text-slate-500 font-extrabold leading-[0.95] inset-0 items-center justify-center">
+            Everything a trader needs.</h1>
+          <p class="mx-auto mt-3 max-w-[50vw] leading-[3vw] text-[2vw] font-bold text-slate-400 justify-center">Discover
+            powerful tools, real-time insights, and expert guidance to enhance your trading strategy and stay ahead in
+            the market.</p>
+        </div>
+        <img class="mt-[100vh]"/>
       </div>
-      <img class="mt-[20rem]" src="https://uploads-ssl.webflow.com/5f8ed35013fa85618cfb8d85/5f8ee487527251dad431f595_hero-ui_2808w.jpg" loading="eager" data-w-id="714457fd-a11f-def2-3fa8-cbefa1250096" alt="">
-      <div class="absolute block flex flex-col">
-        <h1 class="flex-auto hero-headline-text text-10xl text-purple-500 font-extrabold leading-[0.95] inset-0 items-center justify-center">Everything a trader needs.</h1>
-        <p class="mx-auto mt-3 max-w-[50vw] leading-[3vw] text-[2vw] font-bold text-slate-400 justify-center">Discover powerful tools, real-time insights, and expert guidance to enhance your trading strategy and stay ahead in the market.</p>
-      </div>
-      <img class="mt-[100vh]"/>
-      <div class="absolute block flex flex-col">
-        <h1 class="flex-auto hero-headline-text text-10xl text-purple-500 font-extrabold leading-[0.95] inset-0 items-center justify-center">Everything a trader needs.</h1>
-        <p class="mx-auto mt-3 max-w-[50vw] leading-[3vw] text-[2vw] font-bold text-slate-400 justify-center">Discover powerful tools, real-time insights, and expert guidance to enhance your trading strategy and stay ahead in the market.</p>
-      </div>
-
     </div>
   </div>
-</div>
 </section>
 <section class="h-[100vh]">
+
 </section>
 <section class="h-[100vh]">
 
@@ -37,19 +36,24 @@
   const heroTransformTarget = document.getElementById('heroTransformTarget');
   const header = document.getElementById('main-header');
 
+  document.addEventListener('DOMContentLoaded', () => {
+    header.classList.remove('shadow-md');
+  });
+
   window.addEventListener('scroll', () => {
     const scrollPercentage = (window.scrollY / document.body.clientHeight) * 100;
 
     const scale = 1.2 - 0.5 * (scrollPercentage / 100);
-    //const interpolatedTransform = `translate3d(${4 - 4 * (scrollPercentage / 100)}%, 0px, 0px) scale3d(${1.2 - 0.5 * (scrollPercentage / 100)}, ${1.2 - 0.5 * (scrollPercentage / 100)}, 1)`;
     const interpolatedTransform = `scale3d(${1.2 - 0.5 * (scrollPercentage / 100)}, ${1.2 - 0.5 * (scrollPercentage / 100)}, 1)`;
 
     heroTransformTarget.style.transform = interpolatedTransform;
     heroTransformTarget.style.width = `${Math.min(100 / scale, 100)}%`; // width so it's still 100% width after the scaling
 
     // Apply the opacity to the shadow
-    const boxShadowOpacity = Math.min(0.2 * scrollPercentage / 100, 0.16); // Adjust the opacity values as needed
-    const boxShadow = `0 6px 20px rgba(0, 0, 0, ${boxShadowOpacity}), 0 2px 6px rgba(0, 0, 0, ${boxShadowOpacity / 2}), 0 0 1px rgba(0, 0, 0, ${boxShadowOpacity / 2})`;
+    const boxShadowOpacity = Math.min(0.2 * scrollPercentage / 100, 0.12); // Adjust the opacity values as needed
+    const boxShadow = `0 6px 20px rgba(0, 0, 0, ${boxShadowOpacity / 1}),
+                       0 2px 6px  rgba(0, 0, 0, ${boxShadowOpacity / 2}),
+                       0 0px 1px  rgba(0, 0, 0, ${boxShadowOpacity / 2})`;
     header.style.boxShadow = boxShadow;
 
   });
@@ -75,7 +79,7 @@
     transform-origin: 50% 40%;
     font-size: 10vw;
     transform: scale3d(1.2, 1.2, 1);
-    width: calc(1/1.2 * 100%);
+    width: calc(1 / 1.2 * 100%);
   }
 
 </style>

@@ -1,13 +1,185 @@
 <div class="bg-gray-50 pt-[1.5rem] p-[1rem] min-h-[100vh]">
   <div class="mx-auto max-w-[80vw]">
-
+    <!-- Stock / Crypto Overview Page -->
+    <!-- Summary and recommendation container -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 my-4">
+      <!-- Summary container -->
+      <div class="min-h-[10rem] col-span-2 p-4 md:p-6 lg:p-8">
+        <div class="mb-4 flex items-center justify-left">
+          <div class="lg:mb-2 px-2">
+            <div class="flex justify-between">
+              <h3 class="me-[1rem] lg:mb-2 text-2xl lg:text-4xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">
+                Bitcoin
+                <span class=" ms-[-0.125rem] lg:ms-[-0.5rem] text-3.5xl lg:text-5xl text-gray-400">
+                  BTC
+                </span>
+              </h3>
+              <button type="button"
+                      class="flex items-center justify-center my-1.5 px-4 py-2 text-xs font-medium text-white rounded-lg bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-blue-300 dark:bg-purple-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                     aria-hidden="true">
+                  <path clip-rule="evenodd" fill-rule="evenodd"
+                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+                </svg>
+                Watchlist
+              </button>
+            </div>
+            <div class="mb-4">
+              <h3 class="mb-[-0.25rem] text-4xl lg:text-6xl font-black lg:font-extrabold lg:tracking-wide text-gray-900">
+                39420
+                <span class="ms-[-0.125rem] lg:ms-[-0.5rem] text-lg lg:text-2xl text-gray-400">
+                  USD
+                </span>
+              </h3>
+              <span class="text-xs lg:text-base inline-block font-normal lg:tracking-wide text-gray-400">
+                December 2, 2023, 00:00:00 UTC
+              </span>
+            </div>
+            <span class="text-md lg:text-xl inline-block font-normal lg:tracking-wide text-gray-500">Bitcoin is a decentralized digital currency, operating on a peer-to-peer network, designed as a store of value and medium of exchange. Introduced in 2009 by an unknown person or group using the pseudonym Satoshi Nakamoto, Bitcoin relies on blockchain technology to secure and verify transactions. Its limited supply of 21 million coins, decentralized nature, and cryptographic features contribute to its appeal as a groundbreaking form of digital currency and a potential alternative to traditional financial systems.</span>
+          </div>
+        </div>
+      </div>
+      <!-- Recommendation container -->
+      <div class="shadow-sm bg-white rounded-lg min-h-[10rem] p-4 md:p-6 lg:p-8">
+        <!-- Title -->
+        <div class="mb-4 flex items-center justify-left">
+          <div class="lg:mb-2">
+            <h3 class="mb-2 text-xl lg:text-3xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">
+              Our recommendation</h3>
+          </div>
+        </div>
+        <!-- Recommendation -->
+        <div class="flex flex-col text-center">
+          <dd>
+            <div class="inline-flex items-center px-2.5 py-0.5 text-5xl font-extrabold text-emerald-400 dark:text-emerald-400 text-center">
+              12%
+              <svg class="w-14 h-14 ms-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                      d="M17.25 15.25V6.75H8.75"></path>
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                      d="M17 7L6.75 17.25"></path>
+              </svg>
+            </div>
+          </dd>
+          <dt class="mb-6 text-lg leading-6 font-medium text-gray-500">
+            Expected increase
+          </dt>
+          <a href="#" class="inline-flex justify-center items-center font-extrabold tracking-wider text-[4rem] mx-5 px-10 py-2.5 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-blue-300 rounded-lg text-center dark:focus:ring-blue-900">
+                BUY
+                <svg class="ml-2 -mr-1 w-12 h-12" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </a>
+        </div>
+      </div>
+    </div>
     <!-- 2 Graphs container -->
-    <div class="grid grid-cols-2 gap-4 my-4">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 my-4">
       <!-- 1st Graph container -->
       <div class="shadow-sm bg-white rounded-lg min-h-[10rem] p-4 md:p-6 lg:p-8">
+        <div class="flex justify-between mb-5">
+          <!-- Title -->
+          <div class="mb-4 flex items-center justify-left">
+            <div class="lg:mb-2">
+              <h3 class="mb-2 text-xl lg:text-3xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">
+                Share price
+                <span class="text-2xl lg:text-4xl text-gray-400">
+                  USD
+                </span>
+              </h3>
+              <span class="text-md lg:text-xl font-normal lg:tracking-wide text-gray-500">Market summary</span>
+            </div>
+          </div>
+          <!-- Time period selection -->
+          <div>
+            <button id="dropdownDefaultButton"
+                    data-dropdown-toggle="lastDaysdropdown"
+                    data-dropdown-placement="bottom" type="button"
+                    class="px-3 py-2 inline-flex items-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              Last week
+              <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                   viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="m1 1 4 4 4-4"/>
+              </svg>
+            </button>
+            <div id="lastDaysdropdown"
+                 class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yesterday</a>
+                </li>
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Today</a>
+                </li>
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
+                    7 days</a>
+                </li>
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
+                    30 days</a>
+                </li>
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
+                    90 days</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Price chart -->
+        {% include 'price-chart.html' %}
       </div>
       <!-- 2nd Graph container -->
       <div class="shadow-sm bg-white rounded-lg min-h-[10rem] p-4 md:p-6 lg:p-8">
+        <div class="flex justify-between mb-5">
+          <!-- Title -->
+          <div class="mb-4 flex items-center justify-left">
+            <div class="lg:mb-2">
+              <h3 class="mb-2 text-xl lg:text-3xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">
+                Public sentiment</h3>
+              <span class="text-md lg:text-xl font-normal lg:tracking-wide text-gray-500">Instant insight</span>
+            </div>
+          </div>
+          <!-- Time period selection -->
+          <div>
+            <button id="dropdownDefaultButton"
+                    data-dropdown-toggle="lastDaysdropdown"
+                    data-dropdown-placement="bottom" type="button"
+                    class="px-3 py-2 inline-flex items-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              Last week
+              <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                   viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="m1 1 4 4 4-4"/>
+              </svg>
+            </button>
+            <div id="lastDaysdropdown"
+                 class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yesterday</a>
+                </li>
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Today</a>
+                </li>
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
+                    7 days</a>
+                </li>
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
+                    30 days</a>
+                </li>
+                <li>
+                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
+                    90 days</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Sentiment chart -->
+        {% include 'sentiment-chart.html' %}
       </div>
     </div>
 
@@ -21,151 +193,19 @@
         </div>
       </div>
       <!-- Table -->
-      <div id="article-table" class="relative overflow-x-auto sm:rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead id="article-table-head"
-                 class="text-xs tracking-wider uppercase bg-gray-50 dark:bg-gray-700 text-gray-500">
-          <tr>
-            <th scope="col" class="px-6 py-3 font-medium">
-              <div class="flex items-center">
-                Date & Time
-                <a href="#">
-                  <svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                       viewBox="0 0 24 24">
-                    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
-                  </svg>
-                </a>
-              </div>
-            </th>
-            <th scope="col" class="px-6 py-3 font-medium">
-              Headline
-            </th>
-            <th scope="col" class="px-6 py-3 font-medium">
-              <div class="flex items-center me-8">
-                Description
-              </div>
-            </th>
-            <th scope="col" class="px-6 py-3 font-medium">
-              <div class="flex items-center">
-                Sentiment
-                <a href="#">
-                  <svg class="w-3 h-3 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                       viewBox="0 0 24 24">
-                    <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
-                  </svg>
-                </a>
-              </div>
-            </th>
-          </tr>
-          </thead>
-          <tbody id="article-table-body">
-          <div id="article-table-spinner" role="status" class="invisible justify-center items-center flex absolute inset-0 bg-gray-50 dark:bg-gray-800">
-            <svg aria-hidden="true" class="w-14 h-14 text-gray-200 animate-spin dark:text-gray-600 fill-purple-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-              <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-            </svg>
-          </div>
-          <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              2023-01-10
-            </th>
-            <td class="px-6 py-4">
-              Bitcoin Hits All-Time High
-            </td>
-            <td class="px-6 py-4">
-              Bitcoin reached a new record high at $70,000
-            </td>
-            <td class="px-6 py-4 text-center">
-              <span class="inline-block px-2.5 py-0.5 bg-emerald-100 text-emerald-700 rounded-md font-medium">
-                0.8
-              </span>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+      {% include 'article-table.html' %}
     </div>
   </div>
 </div>
 
 
 <script>
-  const articleSpinner = document.getElementById('article-table-spinner');
-  function toggleSpinner() {
-    articleSpinner.classList.toggle("invisible");
-  }
-
-  const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-
-  async function fetchData() {
-    console.log("Start");
-    toggleSpinner();
-    fetch('/get_latest_data')
-        .then(response => response.json())
-        .then(data => {
-          const tableBody = document.getElementById('article-table-body');
-          tableBody.innerHTML = ''; // Clear existing rows
-
-          data.forEach(row => {
-            const newRow = document.createElement('tr');
-            newRow.className = 'odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700';
-
-            const dateCell = document.createElement('td');
-            dateCell.className = 'px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white';
-            dateCell.textContent = row.date;
-            newRow.appendChild(dateCell);
-
-            const headlineCell = document.createElement('td');
-            headlineCell.className = 'px-6 py-4 animate-marquee overflow-x-hidden';
-            headlineCell.textContent = row.headline;
-            newRow.appendChild(headlineCell);
-
-            const descriptionCell = document.createElement('td');
-            descriptionCell.className = 'px-6 py-4 overflow-x-hidden';
-            descriptionCell.textContent = row.description + "longsdfasdasudiuhsa dsaudhasiuhdu sad sahudihsaud asd dsadas dsadas dsadas d";
-            newRow.appendChild(descriptionCell);
-
-            const sentimentCell = document.createElement('td');
-            sentimentCell.className = 'px-6 py-4';
-
-            const sentimentSpan = document.createElement('span');
-            sentimentSpan.className = 'px-2.5 py-0.5 w-[65px] text-center inline-block font-medium rounded-md'
-            if (row.sentiment < -0.5) {
-              sentimentSpan.classList.add('bg-rose-100', 'text-rose-700');
-            } else if (row.sentiment <= 0.5) {
-              sentimentSpan.classList.add('bg-amber-100', 'text-amber-700');
-            } else {
-              sentimentSpan.classList.add('bg-emerald-100', 'text-emerald-700');
-            }
-
-            sentimentSpan.textContent = row.sentiment.toFixed(2);
-            sentimentCell.appendChild(sentimentSpan);
-
-            newRow.appendChild(sentimentCell);
-
-            tableBody.appendChild(newRow);
-          });
-        });
-    await sleep(1000);
-    toggleSpinner();
-  }
-
-  const socket = io.connect('http://' + document.domain + ':' + location.port + '/');
-  // Fetch data initially and set up a periodic update
-  fetchData();
-  setInterval(fetchData, 5000);
-
-  // socket received events handlers
-  socket.on("connect", () => {
-    console.log(socket.id); // some id for debug
-  });
-
-  socket.on("disconnect", () => {
-    console.log(socket.id); // undefined
-  });
+  fetchArticleTable();
+  setInterval(fetchArticleTable, 10000);
 
   socket.on('update', function (msg) {
-      console.log('Received update:', msg);
+    // received custom event 'update' from the server
+    console.log('Received update:', msg);
   });
 
 </script>

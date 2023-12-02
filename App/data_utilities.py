@@ -12,6 +12,7 @@ def randomize_data():
 
 
 def update_data(data):
+
     new_row = randomize_data()
     data.append(new_row)
     if len(data) > 500:
