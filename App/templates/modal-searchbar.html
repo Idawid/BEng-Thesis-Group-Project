@@ -1,10 +1,12 @@
 <!-- Search modal -->
-<div id="search-modal" class="hidden shadow-lg fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24" role="dialog"
-     aria-modal="true" data-headlessui-state="open" >
+<div id="search-modal" class="hidden shadow-lg fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24"
+     role="dialog"
+     aria-modal="true" data-headlessui-state="open">
   <!-- Modal content here -->
   <div class="fixed inset-0 bg-slate-900/25 backdrop-blur transition-opacity opacity-100" bis_skin_checked="1"></div>
   <div class="relative w-full max-w-lg transform px-4 transition-all opacity-100 scale-100" bis_skin_checked="1">
-    <div id="search-modal-proper" class="overflow-hidden rounded-lg bg-white shadow-md modal-content" id="headlessui-dialog-panel-17"
+    <div id="search-modal-proper" class="overflow-hidden rounded-lg bg-white shadow-md modal-content"
+         id="headlessui-dialog-panel-17"
          data-headlessui-state="open">
       <!-- Modal content goes here -->
       <div class="relative">
@@ -33,32 +35,29 @@
   const modalContainer = document.getElementById('search-modal-proper');
   const searchInput = document.getElementById('search-input');
   const searchSuggestionList = document.getElementById('search-suggestion-list')
+  let stockMap = new Map();
 
-  const availableSuggestions = [
-    {
-      text: 'Bitcoin',
-      iconId: 'bitcoin', // ID of the Bitcoin icon in icons.svg
-    },
-    {
-      text: 'Apple',
-      iconId: 'apple', // ID of the Ethereum icon in icons.svg
-    },
-    {
-      text: 'Siacoin',
-      iconId: 'siacoin', // ID of the Siacoin icon in icons.svg
-    },
-  ];
+  async function fetchStockList() {
+    try {
+      const response = await fetch(dataPath);
+      const stockListObject = await response.json();
+      stockMap = new Map(Object.entries(stockListObject));
+    } catch (error) {
+      console.error('Error fetching stock data:', error);
+      return null;
+    }
+  }
 
   function toggleSearchBarModal() {
-      modal.classList.toggle("hidden");
+    modal.classList.toggle("hidden");
 
-      if (!modal.classList.contains("hidden")) {
-        const searchInput = document.getElementById('search-input')
+    if (!modal.classList.contains("hidden")) {
+      const searchInput = document.getElementById('search-input')
 
-        searchInput.focus();
-        searchInput.value = "";
-        showSuggestions();
-      }
+      searchInput.focus();
+      searchInput.value = "";
+      showSuggestions();
+    }
   }
 
   function createSVGElement(symbolId) {
@@ -78,24 +77,30 @@
   }
 
   function filterItems(search) {
-    if (search.trim() === "") {
-      // return 3 default items when search is empty
-      return availableSuggestions.slice(0, 3);
+    if (stockMap.size == 0) {
+      return [];
     }
 
-    return availableSuggestions.filter(item =>
-        item.text.toLowerCase().startsWith(search.toLowerCase())
+    if (search.trim() === "") {
+      // return 3 default items when search is empty
+      // return stockList.slice(0, 10)
+      return [...stockMap.keys()];
+    }
+
+    return [...stockMap.keys()].filter(key =>
+      stockMap.get(key).name.toLowerCase().startsWith(search.toLowerCase()) ||
+      stockMap.get(key).ticker.toLowerCase().startsWith(search.toLowerCase())
     );
   }
 
   function showSuggestions(search = '') {
-    const filteredItems = filterItems(search);
+    const filteredStockKeys = filterItems(search);
 
     // Clear previous suggestions
     searchSuggestionList.innerHTML = '';
 
     // Add new suggestions
-    filteredItems.forEach(item => {
+    filteredStockKeys.forEach(key => {
       const suggestionItem = document.createElement('li');
       suggestionItem.classList.add(
           'w-full',
@@ -109,19 +114,24 @@
       );
 
       // Create and append the SVG icon element
-      const icon = createSVGElement(item.iconId);
+      const icon = createSVGElement(key);
       suggestionItem.appendChild(icon);
 
-      // Add suggestion text
+      // Add suggestion name and ticker
       const textSpan = document.createElement('span');
-      textSpan.textContent = item.text;
+      textSpan.textContent = stockMap.get(key).name;
       suggestionItem.appendChild(textSpan);
 
+      const tickerSpan = document.createElement('span');
+      tickerSpan.textContent = stockMap.get(key).ticker;
+      tickerSpan.classList.add('ms-1', 'text-gray-400', 'font-normal', 'text-lg');
+      suggestionItem.appendChild(tickerSpan);
+
       suggestionItem.addEventListener('click', () => {
-        searchInput.value = item.text;
+        searchInput.value = stockMap.get(key).name;
         searchSuggestionList.classList.add('hidden');
 
-        window.location.href = `/dashboard?id=${item.text}`;
+        window.location.href = `/dashboard?id=${key}`;
       });
 
       searchSuggestionList.appendChild(suggestionItem);
@@ -136,7 +146,7 @@
     showSuggestions(search);
   });
 
-  modal.addEventListener("click", function(event) {
+  modal.addEventListener("click", function (event) {
     if (!modal.classList.contains("hidden") && !modalContainer.contains(event.target)) {
       toggleSearchBarModal();
     }
@@ -147,6 +157,10 @@
     if (e.key === 'Escape') {
       modal.classList.add('hidden');
     }
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    fetchStockList();
   });
 
 </script>

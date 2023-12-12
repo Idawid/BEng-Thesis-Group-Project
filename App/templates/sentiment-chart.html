@@ -10,17 +10,18 @@
           name: "Sentiment",
           color: "#9333ea",
           data: [
-            {x: "Mon", y: -231},
-            {x: "Tue", y: 122},
-            {x: "Wed", y: 63},
-            {x: "Thu", y: 421},
-            {x: "Fri", y: -122},
-            {x: "Sat", y: 323},
-            {x: "Sun", y: 111},
+            {x: "Mon", y: -0.1},
+            {x: "Tue", y: 1},
+            {x: "Wed", y: -1},
+            {x: "Thu", y: 0.5},
+            {x: "Fri", y: -0.3},
+            {x: "Sat", y: 0.6},
+            {x: "Sun", y: 0.1},
           ],
         }
       ],
       chart: {
+        id: 'sentiment',
         type: "bar",
         height: "320px",
         fontFamily: "Inter, sans-serif",
@@ -96,8 +97,8 @@
     }
 
     if (document.getElementById("sentiment-chart") && typeof ApexCharts !== 'undefined') {
-      const chart = new ApexCharts(document.getElementById("sentiment-chart"), options);
-      chart.render();
+      const sentimentChart = new ApexCharts(document.getElementById("sentiment-chart"), options);
+      sentimentChart.render();
     }
   });
 </script>

@@ -9,9 +9,9 @@
           <div class="lg:mb-2 px-2">
             <div class="flex justify-between">
               <h3 class="me-[1rem] lg:mb-2 text-2xl lg:text-4xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">
-                Bitcoin
+                {{ stock.name }}
                 <span class=" ms-[-0.125rem] lg:ms-[-0.5rem] text-3.5xl lg:text-5xl text-gray-400">
-                  BTC
+                  {{ stock.ticker }}
                 </span>
               </h3>
               <button type="button"
@@ -26,16 +26,21 @@
             </div>
             <div class="mb-4">
               <h3 class="mb-[-0.25rem] text-4xl lg:text-6xl font-black lg:font-extrabold lg:tracking-wide text-gray-900">
-                39420
+                <span id="stock-price">
+                  0.00
+                </span>
                 <span class="ms-[-0.125rem] lg:ms-[-0.5rem] text-lg lg:text-2xl text-gray-400">
                   USD
                 </span>
               </h3>
-              <span class="text-xs lg:text-base inline-block font-normal lg:tracking-wide text-gray-400">
-                December 2, 2023, 00:00:00 UTC
+              <span id="stock-price-dt"
+                    class="text-xs lg:text-base inline-block font-normal lg:tracking-wide text-gray-400">
+                January 01, 1970, 00:00:00 UTC
               </span>
             </div>
-            <span class="text-md lg:text-xl inline-block font-normal lg:tracking-wide text-gray-500">Bitcoin is a decentralized digital currency, operating on a peer-to-peer network, designed as a store of value and medium of exchange. Introduced in 2009 by an unknown person or group using the pseudonym Satoshi Nakamoto, Bitcoin relies on blockchain technology to secure and verify transactions. Its limited supply of 21 million coins, decentralized nature, and cryptographic features contribute to its appeal as a groundbreaking form of digital currency and a potential alternative to traditional financial systems.</span>
+            <span class="text-md lg:text-xl inline-block font-normal lg:tracking-wide text-gray-500">
+              {{ stock.description }}
+            </span>
           </div>
         </div>
       </div>
@@ -64,10 +69,16 @@
           <dt class="mb-6 text-lg leading-6 font-medium text-gray-500">
             Expected increase
           </dt>
-          <a href="#" class="inline-flex justify-center items-center font-extrabold tracking-wider text-[4rem] mx-5 px-10 py-2.5 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-blue-300 rounded-lg text-center dark:focus:ring-blue-900">
-                BUY
-                <svg class="ml-2 -mr-1 w-12 h-12" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-            </a>
+          <a href="#"
+             class="inline-flex justify-center items-center font-extrabold tracking-wider text-[4rem] mx-5 px-10 py-2.5 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-blue-300 rounded-lg text-center dark:focus:ring-blue-900">
+            BUY
+            <svg class="ml-2 -mr-1 w-12 h-12" fill="currentColor" viewBox="0 0 20 20"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+            </svg>
+          </a>
         </div>
       </div>
     </div>
@@ -90,8 +101,8 @@
           </div>
           <!-- Time period selection -->
           <div>
-            <button id="dropdownDefaultButton"
-                    data-dropdown-toggle="lastDaysdropdown"
+            <button id="priceChartDropdownButton"
+                    data-dropdown-toggle="priceChartDropdown"
                     data-dropdown-placement="bottom" type="button"
                     class="px-3 py-2 inline-flex items-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
               Last week
@@ -101,27 +112,10 @@
                       d="m1 1 4 4 4-4"/>
               </svg>
             </button>
-            <div id="lastDaysdropdown"
+            <div id="priceChartDropdown"
                  class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yesterday</a>
-                </li>
-                <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Today</a>
-                </li>
-                <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
-                    7 days</a>
-                </li>
-                <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
-                    30 days</a>
-                </li>
-                <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
-                    90 days</a>
-                </li>
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="priceChartDropdownButton">
+                <!-- Dynamically generate dropdown options from timeRangeMapping -->
               </ul>
             </div>
           </div>
@@ -142,8 +136,8 @@
           </div>
           <!-- Time period selection -->
           <div>
-            <button id="dropdownDefaultButton"
-                    data-dropdown-toggle="lastDaysdropdown"
+            <button id="sentimentChartDropdownButton"
+                    data-dropdown-toggle="sentimentChartDropdown"
                     data-dropdown-placement="bottom" type="button"
                     class="px-3 py-2 inline-flex items-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
               Last week
@@ -153,27 +147,10 @@
                       d="m1 1 4 4 4-4"/>
               </svg>
             </button>
-            <div id="lastDaysdropdown"
+            <div id="sentimentChartDropdown"
                  class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yesterday</a>
-                </li>
-                <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Today</a>
-                </li>
-                <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
-                    7 days</a>
-                </li>
-                <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
-                    30 days</a>
-                </li>
-                <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last
-                    90 days</a>
-                </li>
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="sentimentChartDropdownButton">
+                <!-- Dynamically generate dropdown options from timeRangeMapping -->
               </ul>
             </div>
           </div>
@@ -200,12 +177,100 @@
 
 
 <script>
-  fetchArticleTable();
-  setInterval(fetchArticleTable, 10000);
+  // socket multiplexing Base + Dashboard:
+  const socketDashboard = io('http://' + document.domain + ':' + location.port + '/dashboard');
 
-  socket.on('update', function (msg) {
-    // received custom event 'update' from the server
-    console.log('Received update:', msg);
+  // fetchArticleTable();
+  // setInterval(fetchArticleTable, 10000);
+
+  initializeChartDropdown('sentimentChart', updateSentimentChart);
+
+  initializeChartDropdown('priceChart', updatePriceChart);
+
+  function updatePriceChart(chartId, timeRange) {
+    return;
+  }
+
+  function updateSentimentChart(chartId, timeRange) {
+    return;
+  }
+
+  document.getElementById('priceChartDropdownButton').addEventListener('click', function () {
+    const selectedTimePeriod = this.innerText.trim();
+    updateChart(selectedTimePeriod);
   });
+
+  document.getElementById('sentimentChartDropdownButton').addEventListener('click', function () {
+    const selectedTimePeriod = this.innerText.trim();
+    updateChart(selectedTimePeriod);
+  });
+
+  socketDashboard.on("connect", () => {
+    socketDashboard.emit("update_price_request", {'ticker': '{{ stock.ticker }}'});
+  });
+
+  socketDashboard.on("disconnect", () => {
+    console.log('[DASHBOARD] Client disconnected:' + socketDashboard.id); // undefined
+  });
+
+  socketDashboard.on('update_price', function (data) {
+    console.log(data.price)
+    document.getElementById('stock-price').textContent = data.price.toFixed(2);
+    document.getElementById('stock-price-dt').textContent = data.date;
+  });
+
+  socketDashboard.on('update_sentiment', function (data) {
+    console.log('Sentiment chart updated:')
+    let parsedData = JSON.parse(data.df_data);
+
+    const newData = parsedData.data.map(item => ({
+      x: formatDate(item[0]),
+      y: parseFloat(item[1]).toFixed(2)
+    }));
+
+    console.log(newData)
+
+    ApexCharts.exec('sentiment', 'updateSeries', [{
+      data: newData
+    }], true);
+  });
+
+  function formatDate(timestamp) {
+    const date = new Date(timestamp);
+    const day = date.getDate();
+    const month = date.toLocaleString('default', {month: 'short'});
+    return `${day} ${month}`;
+  }
+
+  function initializeChartDropdown(chartId, updateFunction) {
+    const timeRangeMapping = {
+      'Yesterday': 1,
+      'Today': 1,
+      'Last 7 days': 7,
+      'Last 30 days': 30,
+      'Last 90 days': 90,
+    };
+
+    const dropdownList = document.getElementById(chartId + 'Dropdown').querySelector('ul');
+    const dropdownButton = document.getElementById(chartId + 'DropdownButton');
+
+    Object.keys(timeRangeMapping).forEach(textOption => {
+      const listItem = document.createElement('li');
+      listItem.href = '#';
+      listItem.className = 'block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white';
+      listItem.textContent = textOption;
+
+      // Add a click event listener to the dynamically created options
+      listItem.addEventListener('click', function () {
+        const selectedTimePeriod = textOption.trim();
+        const numericalTimeRange = timeRangeMapping[selectedTimePeriod];
+
+        dropdownButton.textContent = selectedTimePeriod;
+        updateFunction(chartId, numericalTimeRange);
+      });
+
+      dropdownList.appendChild(listItem);
+    });
+  }
 
 </script>

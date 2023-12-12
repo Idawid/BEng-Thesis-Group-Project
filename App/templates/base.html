@@ -18,14 +18,18 @@
   <script>
     const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
-    const socket = io.connect('http://' + document.domain + ':' + location.port + '/');
+    const dataPath = '/static/DATA/stock_list.json'
 
-    socket.on("connect", () => {
-      console.log(socket.id); // some id for debug
+    const socketBase = io('http://' + document.domain + ':' + location.port + '/');
+
+    // Base socket debug
+    socketBase.on("connect", () => {
+      console.log('Client connected:' + socketBase.id); // some id for debug
     });
 
-    socket.on("disconnect", () => {
-      console.log(socket.id); // undefined
+    // Base socket debug
+    socketBase.on("disconnect", () => {
+      console.log('Client disconnected:' + socketBase.id); // undefined
     });
   </script>
 
