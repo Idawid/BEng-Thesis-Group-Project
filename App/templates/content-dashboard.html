@@ -1,0 +1,276 @@
+<div class="bg-gray-50 pt-[1.5rem] p-[1rem] min-h-[100vh]">
+  <div class="mx-auto max-w-[80vw]">
+    <!-- Stock / Crypto Overview Page -->
+    <!-- Summary and recommendation container -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 my-4">
+      <!-- Summary container -->
+      <div class="min-h-[10rem] col-span-2 p-4 md:p-6 lg:p-8">
+        <div class="mb-4 flex items-center justify-left">
+          <div class="lg:mb-2 px-2">
+            <div class="flex justify-between">
+              <h3 class="me-[1rem] lg:mb-2 text-2xl lg:text-4xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">
+                {{ stock.name }}
+                <span class=" ms-[-0.125rem] lg:ms-[-0.5rem] text-3.5xl lg:text-5xl text-gray-400">
+                  {{ stock.ticker }}
+                </span>
+              </h3>
+              <button type="button"
+                      class="flex items-center justify-center my-1.5 px-4 py-2 text-xs font-medium text-white rounded-lg bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-blue-300 dark:bg-purple-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                     aria-hidden="true">
+                  <path clip-rule="evenodd" fill-rule="evenodd"
+                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+                </svg>
+                Watchlist
+              </button>
+            </div>
+            <div class="mb-4">
+              <h3 class="mb-[-0.25rem] text-4xl lg:text-6xl font-black lg:font-extrabold lg:tracking-wide text-gray-900">
+                <span id="stock-price">
+                  0.00
+                </span>
+                <span class="ms-[-0.125rem] lg:ms-[-0.5rem] text-lg lg:text-2xl text-gray-400">
+                  USD
+                </span>
+              </h3>
+              <span id="stock-price-dt"
+                    class="text-xs lg:text-base inline-block font-normal lg:tracking-wide text-gray-400">
+                January 01, 1970, 00:00:00 UTC
+              </span>
+            </div>
+            <span class="text-md lg:text-xl inline-block font-normal lg:tracking-wide text-gray-500">
+              {{ stock.description }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- Recommendation container -->
+      <div class="shadow-sm bg-white rounded-lg min-h-[10rem] p-4 md:p-6 lg:p-8">
+        <!-- Title -->
+        <div class="mb-4 flex items-center justify-left">
+          <div class="lg:mb-2">
+            <h3 class="mb-2 text-xl lg:text-3xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">
+              Our recommendation</h3>
+          </div>
+        </div>
+        <!-- Recommendation -->
+        <div class="flex flex-col text-center">
+          <dd>
+            <div class="inline-flex items-center px-2.5 py-0.5 text-5xl font-extrabold text-emerald-400 dark:text-emerald-400 text-center">
+              12%
+              <svg class="w-14 h-14 ms-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                      d="M17.25 15.25V6.75H8.75"></path>
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                      d="M17 7L6.75 17.25"></path>
+              </svg>
+            </div>
+          </dd>
+          <dt class="mb-6 text-lg leading-6 font-medium text-gray-500">
+            Expected increase
+          </dt>
+          <a href="#"
+             class="inline-flex justify-center items-center font-extrabold tracking-wider text-[4rem] mx-5 px-10 py-2.5 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-blue-300 rounded-lg text-center dark:focus:ring-blue-900">
+            BUY
+            <svg class="ml-2 -mr-1 w-12 h-12" fill="currentColor" viewBox="0 0 20 20"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- 2 Graphs container -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 my-4">
+      <!-- 1st Graph container -->
+      <div class="shadow-sm bg-white rounded-lg min-h-[10rem] p-4 md:p-6 lg:p-8">
+        <div class="flex justify-between mb-5">
+          <!-- Title -->
+          <div class="mb-4 flex items-center justify-left">
+            <div class="lg:mb-2">
+              <h3 class="mb-2 text-xl lg:text-3xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">
+                Share price
+                <span class="text-2xl lg:text-4xl text-gray-400">
+                  USD
+                </span>
+              </h3>
+              <span class="text-md lg:text-xl font-normal lg:tracking-wide text-gray-500">Market summary</span>
+            </div>
+          </div>
+          <!-- Time period selection -->
+          <div>
+            <button id="priceChartDropdownButton"
+                    data-dropdown-toggle="priceChartDropdown"
+                    data-dropdown-placement="bottom" type="button"
+                    class="px-3 py-2 inline-flex items-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              Last week
+              <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                   viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="m1 1 4 4 4-4"/>
+              </svg>
+            </button>
+            <div id="priceChartDropdown"
+                 class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="priceChartDropdownButton">
+                <!-- Dynamically generate dropdown options from timeRangeMapping -->
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Price chart -->
+        {% include 'price-chart.html' %}
+      </div>
+      <!-- 2nd Graph container -->
+      <div class="shadow-sm bg-white rounded-lg min-h-[10rem] p-4 md:p-6 lg:p-8">
+        <div class="flex justify-between mb-5">
+          <!-- Title -->
+          <div class="mb-4 flex items-center justify-left">
+            <div class="lg:mb-2">
+              <h3 class="mb-2 text-xl lg:text-3xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">
+                Public sentiment</h3>
+              <span class="text-md lg:text-xl font-normal lg:tracking-wide text-gray-500">Instant insight</span>
+            </div>
+          </div>
+          <!-- Time period selection -->
+          <div>
+            <button id="sentimentChartDropdownButton"
+                    data-dropdown-toggle="sentimentChartDropdown"
+                    data-dropdown-placement="bottom" type="button"
+                    class="px-3 py-2 inline-flex items-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              Last week
+              <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                   viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="m1 1 4 4 4-4"/>
+              </svg>
+            </button>
+            <div id="sentimentChartDropdown"
+                 class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="sentimentChartDropdownButton">
+                <!-- Dynamically generate dropdown options from timeRangeMapping -->
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Sentiment chart -->
+        {% include 'sentiment-chart.html' %}
+      </div>
+    </div>
+
+    <!-- Articles container -->
+    <div class="shadow-sm bg-white rounded-lg min-h-[10rem] p-4 md:p-6 lg:p-8">
+      <!-- Title -->
+      <div class="mb-4 flex items-center justify-left">
+        <div class="lg:mb-2">
+          <h3 class="mb-2 text-xl lg:text-3xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">Articles</h3>
+          <span class="text-md lg:text-xl font-normal lg:tracking-wide text-gray-500">List of latest articles</span>
+        </div>
+      </div>
+      <!-- Table -->
+      {% include 'article-table.html' %}
+    </div>
+  </div>
+</div>
+
+
+<script>
+  // socket multiplexing Base + Dashboard:
+  const socketDashboard = io('http://' + document.domain + ':' + location.port + '/dashboard');
+
+  // fetchArticleTable();
+  // setInterval(fetchArticleTable, 10000);
+
+  initializeChartDropdown('sentimentChart', updateSentimentChart);
+
+  initializeChartDropdown('priceChart', updatePriceChart);
+
+  function updatePriceChart(chartId, timeRange) {
+    return;
+  }
+
+  function updateSentimentChart(chartId, timeRange) {
+    return;
+  }
+
+  document.getElementById('priceChartDropdownButton').addEventListener('click', function () {
+    const selectedTimePeriod = this.innerText.trim();
+    updateChart(selectedTimePeriod);
+  });
+
+  document.getElementById('sentimentChartDropdownButton').addEventListener('click', function () {
+    const selectedTimePeriod = this.innerText.trim();
+    updateChart(selectedTimePeriod);
+  });
+
+  socketDashboard.on("connect", () => {
+    socketDashboard.emit("update_price_request", {'ticker': '{{ stock.ticker }}'});
+  });
+
+  socketDashboard.on("disconnect", () => {
+    console.log('[DASHBOARD] Client disconnected:' + socketDashboard.id); // undefined
+  });
+
+  socketDashboard.on('update_price', function (data) {
+    console.log(data.price)
+    document.getElementById('stock-price').textContent = data.price.toFixed(2);
+    document.getElementById('stock-price-dt').textContent = data.date;
+  });
+
+  socketDashboard.on('update_sentiment', function (data) {
+    console.log('Sentiment chart updated:')
+    let parsedData = JSON.parse(data.df_data);
+
+    const newData = parsedData.data.map(item => ({
+      x: formatDate(item[0]),
+      y: parseFloat(item[1]).toFixed(2)
+    }));
+
+    console.log(newData)
+
+    ApexCharts.exec('sentiment', 'updateSeries', [{
+      data: newData
+    }], true);
+  });
+
+  function formatDate(timestamp) {
+    const date = new Date(timestamp);
+    const day = date.getDate();
+    const month = date.toLocaleString('default', {month: 'short'});
+    return `${day} ${month}`;
+  }
+
+  function initializeChartDropdown(chartId, updateFunction) {
+    const timeRangeMapping = {
+      'Yesterday': 1,
+      'Today': 1,
+      'Last 7 days': 7,
+      'Last 30 days': 30,
+      'Last 90 days': 90,
+    };
+
+    const dropdownList = document.getElementById(chartId + 'Dropdown').querySelector('ul');
+    const dropdownButton = document.getElementById(chartId + 'DropdownButton');
+
+    Object.keys(timeRangeMapping).forEach(textOption => {
+      const listItem = document.createElement('li');
+      listItem.href = '#';
+      listItem.className = 'block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white';
+      listItem.textContent = textOption;
+
+      // Add a click event listener to the dynamically created options
+      listItem.addEventListener('click', function () {
+        const selectedTimePeriod = textOption.trim();
+        const numericalTimeRange = timeRangeMapping[selectedTimePeriod];
+
+        dropdownButton.textContent = selectedTimePeriod;
+        updateFunction(chartId, numericalTimeRange);
+      });
+
+      dropdownList.appendChild(listItem);
+    });
+  }
+
+</script>

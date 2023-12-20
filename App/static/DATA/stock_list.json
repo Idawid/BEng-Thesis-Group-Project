@@ -1,0 +1,50 @@
+{
+  "apple": {
+    "exchange": "NASDAQ",
+    "ticker": "AAPL",
+    "name": "Apple Inc.",
+    "description": "Apple Inc. is a multinational technology company known for its consumer electronics, software, and online services. It's a leading player in the smartphone, computer, and software industries."
+  },
+  "microsoft": {
+    "exchange": "NASDAQ",
+    "ticker": "MSFT",
+    "name": "Microsoft Corporation",
+    "description": "Microsoft Corporation is a global technology company specializing in software, hardware, and other computing services. It's well-known for its Windows operating system, Microsoft Office suite, and Azure cloud services."
+  },
+  "google": {
+    "exchange": "NASDAQ",
+    "ticker": "GOOGL",
+    "name": "Alphabet Inc.",
+    "description": "Alphabet Inc. is the parent company of Google and several other businesses. Google is renowned for its internet-related services, including search, online advertising, and cloud computing."
+  },
+  "amazon": {
+    "exchange": "NASDAQ",
+    "ticker": "AMZN",
+    "name": "Amazon.com Inc.",
+    "description": "Amazon.com Inc. is a multinational technology and e-commerce company. It started as an online bookstore and has expanded into various product categories, cloud computing (Amazon Web Services), and digital streaming."
+  },
+  "tesla": {
+    "exchange": "NASDAQ",
+    "ticker": "TSLA",
+    "name": "Tesla Inc.",
+    "description": "Tesla Inc. is an electric vehicle and clean energy company. It designs and manufactures electric cars, battery storage systems, and solar energy products. Tesla is known for its innovative approach to sustainable transportation."
+  },
+  "facebook": {
+    "exchange": "NASDAQ",
+    "ticker": "FB",
+    "name": "Meta Platforms, Inc.",
+    "description": "Meta Platforms, Inc. (formerly Facebook, Inc.) is a social media conglomerate. It owns and operates various social networking platforms, including Facebook, Instagram, WhatsApp, and Oculus VR."
+  },
+  "bitcoin": {
+    "exchange": null,
+    "ticker": "BTC",
+    "name": "Bitcoin",
+    "description": "Bitcoin is a decentralized digital currency, often referred to as cryptocurrency. It operates on a blockchain technology and is known for its potential as a store of value and a medium of exchange."
+  },
+  "ethereum": {
+    "exchange": null,
+    "ticker": "ETH",
+    "name": "Ethereum",
+    "description": "Ethereum is a decentralized platform that enables the creation and execution of smart contracts and decentralized applications (DApps). It's a blockchain-based platform with its native cryptocurrency, Ether (ETH). Ethereum is widely used for various blockchain applications beyond simple transactions."
+  }
+}

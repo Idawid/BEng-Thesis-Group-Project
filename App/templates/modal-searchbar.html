@@ -1,0 +1,166 @@
+<!-- Search modal -->
+<div id="search-modal" class="hidden shadow-lg fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24"
+     role="dialog"
+     aria-modal="true" data-headlessui-state="open">
+  <!-- Modal content here -->
+  <div class="fixed inset-0 bg-slate-900/25 backdrop-blur transition-opacity opacity-100" bis_skin_checked="1"></div>
+  <div class="relative w-full max-w-lg transform px-4 transition-all opacity-100 scale-100" bis_skin_checked="1">
+    <div id="search-modal-proper" class="overflow-hidden rounded-lg bg-white shadow-md modal-content"
+         id="headlessui-dialog-panel-17"
+         data-headlessui-state="open">
+      <!-- Modal content goes here -->
+      <div class="relative">
+        <input id="search-input"
+               class="block w-full appearance-none bg-transparent py-4 pl-4 pr-12 md:text-lg text-slate-900 placeholder:text-slate-600 focus:outline-none text-sm sm:leading-6"
+               placeholder="Find anything..." aria-label="Search components" id="headlessui-combobox-input-18"
+               role="combobox" type="text" aria-expanded="false" aria-autocomplete="list" data-headlessui-state=""
+               value="" style="caret-color: rgb(107, 114, 128); font-family: 'Inter', sans-serif;" tabindex="0">
+        <svg class="pointer-events-none absolute right-4 top-4 h-6 w-6 fill-slate-400" viewBox="0 0 50 50"
+             xmlns="http://www.w3.org/2000/svg">
+          <path opacity=".25"
+                d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z"></path>
+        </svg>
+      </div>
+
+      <ul id="search-suggestion-list" class="w-full hidden">
+        <!-- Suggestions will be added here using JavaScript -->
+      </ul>
+      <!-- End of modal content -->
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('search-modal')
+  const modalContainer = document.getElementById('search-modal-proper');
+  const searchInput = document.getElementById('search-input');
+  const searchSuggestionList = document.getElementById('search-suggestion-list')
+  let stockMap = new Map();
+
+  async function fetchStockList() {
+    try {
+      const response = await fetch(dataPath);
+      const stockListObject = await response.json();
+      stockMap = new Map(Object.entries(stockListObject));
+    } catch (error) {
+      console.error('Error fetching stock data:', error);
+      return null;
+    }
+  }
+
+  function toggleSearchBarModal() {
+    modal.classList.toggle("hidden");
+
+    if (!modal.classList.contains("hidden")) {
+      const searchInput = document.getElementById('search-input')
+
+      searchInput.focus();
+      searchInput.value = "";
+      showSuggestions();
+    }
+  }
+
+  function createSVGElement(symbolId) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+
+    svg.classList.add(
+        'h-7',
+        'w-7',
+        'me-4'
+    );
+
+    const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+    use.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', `/static/icons/icons.svg#${symbolId}`);
+    svg.appendChild(use);
+
+    return svg;
+  }
+
+  function filterItems(search) {
+    if (stockMap.size == 0) {
+      return [];
+    }
+
+    if (search.trim() === "") {
+      // return 3 default items when search is empty
+      // return stockList.slice(0, 10)
+      return [...stockMap.keys()];
+    }
+
+    return [...stockMap.keys()].filter(key =>
+      stockMap.get(key).name.toLowerCase().startsWith(search.toLowerCase()) ||
+      stockMap.get(key).ticker.toLowerCase().startsWith(search.toLowerCase())
+    );
+  }
+
+  function showSuggestions(search = '') {
+    const filteredStockKeys = filterItems(search);
+
+    // Clear previous suggestions
+    searchSuggestionList.innerHTML = '';
+
+    // Add new suggestions
+    filteredStockKeys.forEach(key => {
+      const suggestionItem = document.createElement('li');
+      suggestionItem.classList.add(
+          'w-full',
+          'p-4',
+          'bg-white',
+          'cursor-pointer',
+          'border-t',
+          'border-gray-300',
+          'flex',
+          'items-center'
+      );
+
+      // Create and append the SVG icon element
+      const icon = createSVGElement(key);
+      suggestionItem.appendChild(icon);
+
+      // Add suggestion name and ticker
+      const textSpan = document.createElement('span');
+      textSpan.textContent = stockMap.get(key).name;
+      suggestionItem.appendChild(textSpan);
+
+      const tickerSpan = document.createElement('span');
+      tickerSpan.textContent = stockMap.get(key).ticker;
+      tickerSpan.classList.add('ms-1', 'text-gray-400', 'font-normal', 'text-lg');
+      suggestionItem.appendChild(tickerSpan);
+
+      suggestionItem.addEventListener('click', () => {
+        searchInput.value = stockMap.get(key).name;
+        searchSuggestionList.classList.add('hidden');
+
+        window.location.href = `/dashboard?id=${key}`;
+      });
+
+      searchSuggestionList.appendChild(suggestionItem);
+    });
+
+    // Show suggestions list
+    searchSuggestionList.classList.remove('hidden');
+  }
+
+  searchInput.addEventListener('input', (e) => {
+    const search = e.target.value;
+    showSuggestions(search);
+  });
+
+  modal.addEventListener("click", function (event) {
+    if (!modal.classList.contains("hidden") && !modalContainer.contains(event.target)) {
+      toggleSearchBarModal();
+    }
+  });
+
+  // document because so don't have to click on the modal before clicking "Esc" to close it.
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      modal.classList.add('hidden');
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    fetchStockList();
+  });
+
+</script>
