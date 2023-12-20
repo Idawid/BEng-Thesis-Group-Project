@@ -1,0 +1,85 @@
+<section id="hero" class="w-full h-full">
+  <div>
+    <div id="heroTransformTarget" class="mx-auto">
+      <div class="relative text-center">
+        <div class="block flex flex-col mt-[20vh] mb-[20vh]">
+          <h1 class="flex-auto hero-headline-text text-10xl text-purple-500 font-extrabold leading-[0.95] inset-0 items-center justify-center">
+            Everything a trader needs.</h1>
+          <p class="mx-auto mt-3 max-w-[50vw] leading-[3vw] text-[2vw] font-bold text-slate-400 justify-center">Discover
+            powerful tools, real-time insights, and expert guidance to enhance your trading strategy and stay ahead in
+            the market.</p>
+        </div>
+
+        <div class="block flex flex-col mt-[20vh] mb-[20vh]">
+          <h1 class="flex-auto hero-headline-text text-3xl text-slate-500 font-extrabold leading-[0.95] inset-0 items-center justify-center">
+            Everything a trader needs.</h1>
+          <p class="mx-auto mt-3 max-w-[50vw] leading-[3vw] text-[2vw] font-bold text-slate-400 justify-center">Discover
+            powerful tools, real-time insights, and expert guidance to enhance your trading strategy and stay ahead in
+            the market.</p>
+        </div>
+        <img class="mt-[100vh]"/>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="h-[100vh]">
+
+</section>
+<section class="h-[100vh]">
+
+</section>
+<section class="h-[100vh]">
+
+</section>
+
+<script>
+  const heroTransformTarget = document.getElementById('heroTransformTarget');
+  const header = document.getElementById('main-header');
+
+  document.addEventListener('DOMContentLoaded', () => {
+    header.classList.remove('shadow-md');
+  });
+
+  window.addEventListener('scroll', () => {
+    const scrollPercentage = (window.scrollY / document.body.clientHeight) * 100;
+
+    const scale = 1.2 - 0.5 * (scrollPercentage / 100);
+    const interpolatedTransform = `scale3d(${1.2 - 0.5 * (scrollPercentage / 100)}, ${1.2 - 0.5 * (scrollPercentage / 100)}, 1)`;
+
+    heroTransformTarget.style.transform = interpolatedTransform;
+    heroTransformTarget.style.width = `${Math.min(100 / scale, 100)}%`; // width so it's still 100% width after the scaling
+
+    // Apply the opacity to the shadow
+    const boxShadowOpacity = Math.min(0.2 * scrollPercentage / 100, 0.12); // Adjust the opacity values as needed
+    const boxShadow = `0 6px 20px rgba(0, 0, 0, ${boxShadowOpacity / 1}),
+                       0 2px 6px  rgba(0, 0, 0, ${boxShadowOpacity / 2}),
+                       0 0px 1px  rgba(0, 0, 0, ${boxShadowOpacity / 2})`;
+    header.style.boxShadow = boxShadow;
+
+  });
+
+</script>
+
+<style>
+  .hero-headline-text {
+    text-align: center;
+    font-size: 10vw;
+    margin-block-start: 0.67em;
+    font-family: Markpro, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 10px;
+  }
+
+  #heroTransformTarget {
+    height: 100%;
+    -webkit-backface-visibility: visible;
+    backface-visibility: visible;
+    transform-origin: 50% 40%;
+    font-size: 10vw;
+    transform: scale3d(1.2, 1.2, 1);
+    width: calc(1 / 1.2 * 100%);
+  }
+
+</style>
