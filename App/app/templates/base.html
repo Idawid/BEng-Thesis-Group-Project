@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %}</title>
+  <!-- JavaScript -->
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@1.3.3/dist/flowbite.js"></script>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"
+          integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz"
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.44.0/apexcharts.min.js" integrity="sha512-9ktqS1nS/L6/PPv4S4FdD2+guYGmKF+5DzxRKYkS/fV5gR0tXoDaLqqQ6V93NlTj6ITsanjwVWZ3xe6YkObIQQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://preline.co/assets/js/hs-apexcharts-helpers.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/preline@2.0.2/dist/preline.min.js"></script>
+  <!-- JS Global -->
+  <script>
+    const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+
+    const dataPath = '/static/DATA/stock_list.json'
+
+    const socketBase = io('http://' + document.domain + ':' + location.port + '/');
+
+    // Base socket debug
+    socketBase.on("connect", () => {
+      console.log('Client connected:' + socketBase.id); // some id for debug
+    });
+
+    // Base socket debug
+    socketBase.on("disconnect", () => {
+      console.log('Client disconnected:' + socketBase.id); // undefined
+    });
+  </script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.44.0/apexcharts.min.css" integrity="sha512-nnNXPeQKvNOEUd+TrFbofWwHT0ezcZiFU5E/Lv2+JlZCQwQ/ACM33FxPoQ6ZEFNnERrTho8lF0MCEH9DBZ/wWw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+<!-- Header -->
+<header>
+  {% block header %}{% endblock %}
+</header>
+
+<div class="pt-[5.75rem]"/>
+
+<!-- Main Content -->
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<!-- Footer -->
+<footer>
+  {% block footer %}{% endblock %}
+</footer>
+
+<!-- Custom JavaScript here -->
+<script src="/static/scripts/script.js"></script>
+
+</body>
+
+</html>

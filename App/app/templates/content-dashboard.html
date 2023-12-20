@@ -1,0 +1,485 @@
+<div class="bg-gray-50 pt-[1.5rem] p-[1rem] min-h-[100vh]">
+  <div class="mx-auto max-w-[80vw]">
+    <!-- Stock / Crypto Overview Page -->
+    <!-- Summary and recommendation container -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 my-4">
+      <!-- Summary container -->
+      <div class="min-h-[10rem] col-span-2 p-4 md:p-6 lg:p-8">
+        <div class="mb-4 flex items-center justify-left">
+          <div class="lg:mb-2 px-2">
+            <div class="flex justify-between">
+              <h3 class="me-[1rem] lg:mb-2 text-2xl lg:text-4xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">
+                {{ stock.name }}
+                <span class=" ms-[-0.125rem] lg:ms-[-0.5rem] text-3.5xl lg:text-5xl text-gray-400">
+                  {{ stock.ticker }}
+                </span>
+              </h3>
+              <button type="button"
+                      class="flex items-center justify-center my-1.5 px-4 py-2 text-xs font-medium text-white rounded-lg bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-blue-300 dark:bg-purple-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                     aria-hidden="true">
+                  <path clip-rule="evenodd" fill-rule="evenodd"
+                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+                </svg>
+                Watchlist
+              </button>
+            </div>
+            <div class="mb-4">
+              <h3 class="mb-[-0.25rem] text-4xl lg:text-6xl font-black lg:font-extrabold lg:tracking-wide text-gray-900">
+                <span id="stock-price">
+                  0.00
+                </span>
+                <span class="ms-[-0.125rem] lg:ms-[-0.5rem] text-lg lg:text-2xl text-gray-400">
+                  USD
+                </span>
+              </h3>
+              <span id="stock-price-dt"
+                    class="text-xs lg:text-base inline-block font-normal lg:tracking-wide text-gray-400">
+                January 01, 1970, 00:00:00 UTC
+              </span>
+            </div>
+            <span class="text-md lg:text-xl inline-block font-normal lg:tracking-wide text-gray-500">
+              {{ stock.description }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- Recommendation container -->
+      <div class="shadow-sm bg-white rounded-lg min-h-[10rem] p-4 md:p-6 lg:p-8">
+        <!-- Title -->
+        <div class="mb-4 flex items-center justify-left">
+          <div class="lg:mb-2">
+            <h3 class="mb-2 text-xl lg:text-3xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">
+              Our recommendation</h3>
+          </div>
+        </div>
+        <!-- Recommendation -->
+        <div class="flex flex-col text-center">
+          <dd>
+            <div class="inline-flex items-center px-2.5 py-0.5 text-5xl font-extrabold text-emerald-400 dark:text-emerald-400 text-center">
+              12%
+              <svg class="w-14 h-14 ms-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                      d="M17.25 15.25V6.75H8.75"></path>
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                      d="M17 7L6.75 17.25"></path>
+              </svg>
+            </div>
+          </dd>
+          <dt class="mb-6 text-lg leading-6 font-medium text-gray-500">
+            Expected increase
+          </dt>
+          <a href="#"
+             class="inline-flex justify-center items-center font-extrabold tracking-wider text-[4rem] mx-5 px-10 py-2.5 text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-blue-300 rounded-lg text-center dark:focus:ring-blue-900">
+            BUY
+            <svg class="ml-2 -mr-1 w-12 h-12" fill="currentColor" viewBox="0 0 20 20"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- 2 Graphs container -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 my-4">
+      <!-- 1st Graph container -->
+      <div class="shadow-sm bg-white rounded-lg min-h-[10rem] p-4 md:p-6 lg:p-8">
+        <div class="flex justify-between mb-5">
+          <!-- Title -->
+          <div class="mb-4 flex items-center justify-left">
+            <div class="lg:mb-2">
+              <h3 class="mb-2 text-xl lg:text-3xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">
+                Share price
+                <span class="text-2xl lg:text-4xl text-gray-400">
+                  USD
+                </span>
+              </h3>
+              <span class="text-md lg:text-xl font-normal lg:tracking-wide text-gray-500">Market summary</span>
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <!-- Historical Time period selection -->
+            <span class="py-2 text-md lg:text-xl font-normal lg:tracking-wide text-gray-500">From:</span>
+            <div>
+              <button id="priceChartDropdownButton"
+                      data-dropdown-toggle="priceChartDropdown"
+                      data-dropdown-placement="bottom" type="button"
+                      class="px-3 py-2 inline-flex items-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Last week
+                <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                     viewBox="0 0 10 6">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4"/>
+                </svg>
+              </button>
+              <div id="priceChartDropdown"
+                   class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="priceChartDropdownButton">
+                  <!-- Dynamically generate dropdown options from timeRangeMapping -->
+                </ul>
+              </div>
+            </div>
+            <!-- Forecast Time period selection -->
+            <span class="py-2 text-md lg:text-xl font-normal lg:tracking-wide text-gray-500">For:</span>
+            <div>
+              <button id="priceForecastChartDropdownButton"
+                      data-dropdown-toggle="priceForecastChartDropdown"
+                      data-dropdown-placement="bottom" type="button"
+                      class="px-3 py-2 inline-flex items-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Next 7 days
+                <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                     viewBox="0 0 10 6">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4"/>
+                </svg>
+              </button>
+              <div id="priceForecastChartDropdown"
+                   class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                    aria-labelledby="priceForecastChartDropdownButton">
+                  <!-- Dynamically generate dropdown options from timeRangeMapping -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Price chart -->
+        {% include 'price-chart.html' %}
+      </div>
+      <!-- 2nd Graph container -->
+      <div class="shadow-sm bg-white rounded-lg min-h-[10rem] p-4 md:p-6 lg:p-8">
+        <div class="flex justify-between mb-5">
+          <!-- Title -->
+          <div class="mb-4 flex items-center justify-left">
+            <div class="lg:mb-2">
+              <h3 class="mb-2 text-xl lg:text-3xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">
+                Public sentiment</h3>
+              <span class="text-md lg:text-xl font-normal lg:tracking-wide text-gray-500">Instant insight</span>
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <span class="py-2 text-md lg:text-xl font-normal lg:tracking-wide text-gray-500">From:</span>
+            <!-- Time period selection -->
+            <div>
+              <button id="sentimentChartDropdownButton"
+                      data-dropdown-toggle="sentimentChartDropdown"
+                      data-dropdown-placement="bottom" type="button"
+                      class="px-3 py-2 inline-flex items-center text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                Last week
+                <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                     viewBox="0 0 10 6">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 4 4 4-4"/>
+                </svg>
+              </button>
+              <div id="sentimentChartDropdown"
+                   class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                    aria-labelledby="sentimentChartDropdownButton">
+                  <!-- Dynamically generate dropdown options from timeRangeMapping -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Sentiment chart -->
+        {% include 'sentiment-chart.html' %}
+      </div>
+    </div>
+    <!-- Articles container -->
+    <div class="shadow-sm bg-white rounded-lg min-h-[10rem] p-4 md:p-6 lg:p-8">
+      <!-- Title -->
+      <div class="mb-4 flex items-center justify-left">
+        <div class="lg:mb-2">
+          <h3 class="mb-2 text-xl lg:text-3xl font-bold lg:font-extrabold lg:tracking-wide text-gray-900">Articles</h3>
+          <span class="text-md lg:text-xl font-normal lg:tracking-wide text-gray-500">List of latest articles</span>
+        </div>
+      </div>
+      <!-- Table -->
+      {% include 'article-table.html' %}
+    </div>
+  </div>
+</div>
+
+
+<script>
+  let historicalData = [];
+  let forecastData = [];
+
+  class DashboardSocketHandler {
+    constructor(socket, ticker) {
+      this.socket = socket;
+      this.ticker = ticker;
+      this.initEventHandlers();
+    }
+
+    initEventHandlers() {
+      this.socket.on("connect", () => this.handleConnect());
+      this.socket.on("disconnect", () => this.handleDisconnect());
+      this.socket.on("update_price_history", data => this.handleUpdatePriceHistory(data));
+      this.socket.on("update_price_forecast", data => this.handleUpdatePriceForecast(data));
+      this.socket.on("update_sentiment", data => this.handleUpdateSentiment(data));
+      this.socket.on("update_article_list", data => this.handleUpdateArticleList(data));
+      this.socket.on("update_current_price", data => this.handleUpdateCurrentPrice(data));
+    }
+
+    handleConnect() {
+      this.socket.emit("join_ticker", {'ticker': this.ticker});
+      console.log('join_ticker:', this.ticker, 'emitted');
+    }
+
+    handleDisconnect() {
+      console.log('[DASHBOARD] Client disconnected: ' + this.socket.id);
+    }
+
+    handleUpdatePriceHistory(data) {
+      console.log('Price history chart updated:', data);
+
+      const dataArray = JSON.parse(data);
+      historicalData = dataArray;
+      this.updatePriceChart();
+    }
+
+    handleUpdatePriceForecast(data) {
+      console.log('Price forecast chart updated:', data);
+
+      const dataArray = JSON.parse(data);
+      forecastData = dataArray
+      this.updatePriceChart();
+    }
+
+    handleUpdateSentiment(data) {
+      // Expected columns: 'date', 'sentiment_score'
+      console.log('Sentiment chart updated:', data);
+
+      const dataArray = JSON.parse(data);
+      const seriesData = dataArray.map(item => ({
+        x: this.formatDateToShortMonth(item.date),
+        y: parseFloat(item.sentiment_score.toFixed(2))
+      }));
+
+      ApexCharts.exec('sentiment', 'updateSeries', [{
+        data: seriesData
+      }], true);
+    }
+
+    handleUpdateArticleList(data) {
+      console.log('Article list updated:', data);
+
+      const tableBody = document.getElementById('article-table-body');
+      tableBody.innerHTML = ''; // Clear existing rows
+
+      const dataArray = JSON.parse(data);
+      dataArray.forEach(row => {
+        // JSON columns: date, headline, summary, source
+        const newRow = document.createElement('tr');
+        newRow.className = 'odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700';
+
+        const dateCell = document.createElement('td');
+        dateCell.className = 'px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white';
+        dateCell.textContent = row.date;
+        newRow.appendChild(dateCell);
+
+        const headlineCell = document.createElement('td');
+        headlineCell.className = 'px-6 py-4';
+        headlineCell.textContent = row.headline;
+        newRow.appendChild(headlineCell);
+
+        const descriptionCell = document.createElement('td');
+        descriptionCell.className = 'px-6 py-4';
+        descriptionCell.textContent = row.summary;
+        newRow.appendChild(descriptionCell);
+
+        const sourceCell = document.createElement('td');
+        sourceCell.className = 'px-6 py-4';
+        sourceCell.textContent = row.source;
+        newRow.appendChild(sourceCell);
+
+        const sentimentCell = document.createElement('td');
+        sentimentCell.className = 'px-6 py-4';
+
+        const sentimentSpan = document.createElement('span');
+        sentimentSpan.className = 'px-2.5 py-0.5 w-[65px] text-center inline-block font-medium rounded-md'
+        if (row.sentiment_score < -0.5) {
+          sentimentSpan.classList.add('bg-rose-100', 'text-rose-700');
+        } else if (row.sentiment_score <= 0.5) {
+          sentimentSpan.classList.add('bg-amber-100', 'text-amber-700');
+        } else {
+          sentimentSpan.classList.add('bg-emerald-100', 'text-emerald-700');
+        }
+
+        sentimentSpan.textContent = row.sentiment_score.toFixed(2);
+        sentimentCell.appendChild(sentimentSpan);
+
+        newRow.appendChild(sentimentCell);
+
+        tableBody.appendChild(newRow);
+      });
+    }
+
+    handleUpdateCurrentPrice(data) {
+      console.log('Current price updated:', data);
+
+      let lastUpdateTime = data[0].last_update_time;
+      let livePrice = data[0].live_price;
+
+      document.getElementById('stock-price').textContent = livePrice.toFixed(2);
+      document.getElementById('stock-price-dt').textContent = lastUpdateTime;
+    }
+
+    formatDateToShortMonth(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleString('en-US', {month: 'short', day: 'numeric'});
+    }
+
+    updatePriceChart() {
+      const combinedData = [...historicalData, ...forecastData];
+      console.log('combinedData:', combinedData)
+
+      const seriesData = combinedData.map(item => {
+        return {
+          x: this.formatDateToShortMonth(item.date),
+          y: parseFloat(item.close_price.toFixed(2))
+        };
+      });
+
+      ApexCharts.exec('price-chart', 'updateSeries', [{
+        data: seriesData
+      }]);
+
+      const forecastDataPointsCount = forecastData.length;
+      ApexCharts.exec('price-chart', 'updateOptions', {
+        forecastDataPoints: {
+          count: forecastDataPointsCount
+        }
+      })
+    }
+  }
+
+  const MessageType = {
+    PRICE_HISTORY: 'price_history_chart',
+    PRICE_FORECAST: 'price_forecast_chart',
+    SENTIMENT: 'sentiment_chart',
+    ARTICLE_LIST: 'article_list',
+    CURRENT_PRICE: 'current_price'
+  };
+
+  class TimeRangeMapping {
+    constructor() {
+      this.pastTimeRanges = {
+        'Last 7 days': 7,
+        'Last 14 days': 14,
+        'Last 30 days': 30,
+        'Last 90 days': 90,
+      };
+      this.futureTimeRanges = {
+        'Tomorrow': 1,
+        'Next 2 days': 2,
+        'Next 7 days': 7,
+        'Next 14 days': 14,
+        'Next 30 days': 30,
+      };
+    }
+
+    getDateRange(label, isFuture = false) {
+      const today = new Date();
+      const timeRangeMapping = isFuture ? this.futureTimeRanges : this.pastTimeRanges;
+      const numericalTimeRange = timeRangeMapping[label];
+
+      if (numericalTimeRange !== undefined) {
+        const startDate = new Date(today);
+        const endDate = new Date(today);
+
+        if (isFuture) {
+          endDate.setDate(today.getDate() + numericalTimeRange);
+        } else {
+          startDate.setDate(today.getDate() - numericalTimeRange);
+        }
+
+        return {start: startDate, end: endDate};
+      }
+      return null;
+    }
+  }
+
+  class ChartDropdownInitializer {
+    constructor(timeRangeMapping, onRequestDataUpdate, isFuture = false) {
+      this.timeRangeMapping = timeRangeMapping;
+      this.isFuture = isFuture;
+      this.onRequestDataUpdate = onRequestDataUpdate;
+    }
+
+    initialize(chartId, messageType) {
+      const dropdownList = document.getElementById(`${chartId}Dropdown`).querySelector('ul');
+      const dropdownButton = document.getElementById(`${chartId}DropdownButton`);
+
+      Object.keys(this.timeRangeMapping).forEach(textOption => {
+        const listItem = this.createListItem(textOption, dropdownButton, messageType);
+        dropdownList.appendChild(listItem);
+      });
+
+      // Set default selection
+      const defaultOption = Object.keys(this.timeRangeMapping)?.[0] ?? null;
+      if (defaultOption) {
+        dropdownButton.textContent = defaultOption;
+        const dateRange = timeRangeMapping.getDateRange(defaultOption, this.isFuture);
+        this.onRequestDataUpdate(dateRange, messageType);
+      }
+    }
+
+    createListItem(textOption, dropdownButton, messageType) {
+      const listItem = document.createElement('li');
+      listItem.href = '#';
+      listItem.className = 'block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white';
+      listItem.textContent = textOption;
+
+      listItem.addEventListener('click', () => {
+        dropdownButton.textContent = textOption.trim();
+        const dateRange = timeRangeMapping.getDateRange(textOption, this.isFuture);
+        this.onRequestDataUpdate(dateRange, messageType);
+      });
+
+      return listItem;
+    }
+  }
+
+  function requestDataUpdate(dateRange, messageType) {
+    if (dateRange) {
+      const eventData = {
+        'message_type': messageType,
+        'ticker': '{{ stock.ticker }}',
+        'datetime_from': dateRange.start.toISOString(),
+        'datetime_to': dateRange.end.toISOString(),
+      };
+      socketDashboard.emit('update_request', eventData);
+      console.log('update_request:', eventData, 'emitted');
+    }
+  }
+
+  const socketDashboard = io('http://' + document.domain + ':' + location.port + '/dashboard');
+  const dashboardHandler = new DashboardSocketHandler(socketDashboard, '{{ stock.ticker }}');
+
+  const chartConfigurations = [
+    {chartId: 'sentimentChart', messageType: MessageType.SENTIMENT},
+    {chartId: 'priceChart', messageType: MessageType.PRICE_HISTORY},
+    {chartId: 'priceForecastChart', messageType: MessageType.PRICE_FORECAST, isFuture: true}
+  ];
+
+  const timeRangeMapping = new TimeRangeMapping();
+
+  chartConfigurations.forEach(({chartId, messageType, isFuture = false}) => {
+    const chartDropdownInitializer = new ChartDropdownInitializer(
+        isFuture ? timeRangeMapping.futureTimeRanges : timeRangeMapping.pastTimeRanges,
+        requestDataUpdate,
+        isFuture
+    );
+
+    chartDropdownInitializer.initialize(chartId, messageType);
+  });
+
+  requestDataUpdate({start: new Date(), end: new Date()}, MessageType.CURRENT_PRICE);
+  requestDataUpdate({start: new Date(Date.now() - 86400000), end: new Date()}, MessageType.ARTICLE_LIST);
+
+</script>
