@@ -32,14 +32,14 @@ df_sentiment.to_csv("generated/final_df.csv")
 df_sentiment = pd.read_csv("generated/final_df.csv",
                     parse_dates=["date"],
                     index_col=["date"])
-df_sentiment = df_sentiment[[ "sentiment_score"]]
+df_sentiment = df_sentiment[["sentiment_score"]]
 df_stock = yf.download(test_ticker, start=test_from, end=test_to)
-df_prep = timeSeries.makeWinowedDataWithSentiment(df_stock, df_sentiment, 7, 1) ##
+df_prep = timeSeries.makeWindowedDataWithSentiment(df_stock, df_sentiment, 7, 1) ##
 X_train, y_train, X_test, y_test = timeSeries.testTrainingSplit(df_prep)
 train_dataset, test_dataset = timeSeries.prepareDataForTraining(X_train, y_train, X_test, y_test, 1024)
 dataset_all, X_all, y_all = timeSeries.prepareDataForPrediction(df_prep, 1024, 7)
 model = timeSeries.trainModel(INPUT_SIZE, THETA_SIZE, HORIZON, N_NEURONS, N_LAYERS, N_STACKS, train_dataset, N_EPOCHS, test_dataset)
-future_forecast = timeSeries.make_future_forecast(values=y_all,
+future_forecast = timeSeries.make_future_forecast_without_sentiment(values=y_all,
                                    model=model,
                                    into_future=7,
                                    window_size=WINDOW_SIZE)

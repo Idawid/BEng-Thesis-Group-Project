@@ -4,7 +4,7 @@ from flask_socketio import SocketIO, emit, join_room
 
 from app.flask_rabbitmq_connector import BackendServer
 from common.constants import Constants
-from common.data_request import MessageType, DataRequest
+from common.data_request import MessageType, DataRequest, ModelSettings
 
 
 class WebApplication:
@@ -75,16 +75,25 @@ class WebApplicationSocketIO:
                 print('update_request', 'Unknown MessageType:', data['message_type'], data)
                 return
 
+            model_settings = ModelSettings(
+                data['model_settings']['nlp_enable_flag'],
+                data['model_settings']['sentiment_shift_days'],
+                data['model_settings']['number_of_neurons'],
+                data['model_settings']['number_of_layers'],
+                data['model_settings']['number_of_epochs']
+            )
+
             data_request = DataRequest(
                 ticker=data['ticker'],
                 datetime_from=data['datetime_from'],
                 datetime_to=data['datetime_to'],
-                message_type=data['message_type']
+                message_type=data['message_type'],
+                model_settings=model_settings
             )
 
             self.backend_server.send_data_request(data_request=data_request)
 
-            print('update_request', 'OK', data)
+            print('update_request', '1. socketio - OK', data)
 
         @self.socket_io.on('disconnect', namespace='/dashboard')
         def handle_dashboard_disconnect():

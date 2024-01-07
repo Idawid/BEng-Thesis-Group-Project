@@ -35,7 +35,9 @@ class BackendServer:
                     routing_key=Constants.QUEUE_NAME_REQUEST,
                     body=serialized_request
                 )
-            print('update_request', 'sent to MLBackend', data_request)
+            print('update_request', '2. sent to MLBackend', data_request)
+        except Exception as e:
+            print('Error:', str(e))
         finally:
             connection.close()
 
@@ -44,7 +46,7 @@ class BackendServer:
         channel = connection.channel()
 
         def callback(ch, method, properties, body):
-            print('update_request', 'Flask got', body)
+            print('update_request', '5. Flask got', body)
             deserialized_data = json.loads(body)
             processed_data = deserialized_data["processed_data"]
             serialized_request = deserialized_data["original_data"]
