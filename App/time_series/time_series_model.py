@@ -74,14 +74,13 @@ class TimeSeriesModel:
         mse = tf.keras.metrics.mean_squared_error(y_true, y_pred)
         rmse = tf.sqrt(mse)
         mape = tf.keras.metrics.mean_absolute_percentage_error(y_true, y_pred)
-        # mase = mean_absolute_scaled_error(y_true, y_pred)
+        mase = self.mean_absolute_scaled_error(y_true, y_pred)
 
         return {"mae": mae.numpy(),
                 "mse": mse.numpy(),
                 "rmse": rmse.numpy(),
-                "mape": mape.numpy()
-                }
-        # "mase": mase.numpy()}
+                "mape": mape.numpy(),
+                "mase": mase.numpy()}
 
     def testTrainingSplit(self, stock_df):
         # Make features and labels
@@ -95,7 +94,36 @@ class TimeSeriesModel:
         len(X_train), len(y_train), len(X_test), len(y_test)
         return [X_train, y_train, X_test, y_test]
 
-    def make_future_forecast(self, values, model, into_future, window_size) -> list:
+    # 1. Create function to make predictions into the future
+    def make_future_forecast_with_sentiment(self, values, model, into_future, window_size) -> list:
+        """
+        Makes future forecasts into_future steps after values ends.
+
+        Returns future forecasts as list of floats.
+        """
+        # 2. Make an empty list for future forecasts/prepare data to forecast on
+        future_forecast = []
+        last_window = values[-window_size:]  # only want preds from the last window (this will get updated)
+        last_window[0] = 0
+        # 3. Make INTO_FUTURE number of predictions, altering the data which gets predicted on each time
+        for _ in range(into_future):
+            # Predict on last window then append it again, again, again (model starts to make forecasts on its own forecasts)
+            future_pred = model.predict(tf.expand_dims(last_window, axis=0))
+            print(f"Predicting on: \n {last_window} -> Prediction: {tf.squeeze(future_pred).numpy()}\n")
+
+            # Append predictions to future_forecast
+            future_forecast.append(tf.squeeze(future_pred).numpy())
+            # print(future_forecast)
+
+            # Update last window with new pred and get WINDOW_SIZE most recent preds (model was trained on WINDOW_SIZE windows)
+            last_window = np.append(last_window, future_pred)[-window_size:]
+            last_window[0] = 0
+
+        return future_forecast
+
+        # 1. Create function to make predictions into the future
+
+    def make_future_forecast_without_sentiment(self, values, model, into_future, window_size) -> list:
         """
         Makes future forecasts into_future steps after values ends.
 
@@ -105,7 +133,7 @@ class TimeSeriesModel:
         future_forecast = []
         last_window = values[-window_size:]  # only want preds from the last window (this will get updated)
 
-        # 3. Make INTO_FUTURE number of predictions, altering the data which gets predicted on each time 
+        # 3. Make INTO_FUTURE number of predictions, altering the data which gets predicted on each time
         for _ in range(into_future):
             # Predict on last window then append it again, again, again (model starts to make forecasts on its own forecasts)
             future_pred = model.predict(tf.expand_dims(last_window, axis=0))
@@ -119,6 +147,25 @@ class TimeSeriesModel:
             last_window = np.append(last_window, future_pred)[-window_size:]
 
         return future_forecast
+
+    def customModel(horinzon, n_layers, n_neurons, n_epocks, X_train, y_train, X_test, y_test):
+        custom_model = tf.keras.Sequential(name="custom_multivariate")
+        for i in range(n_layers):
+            custom_model.add(layers.Dense(n_neurons, activation="relu"))
+
+        custom_model.add(layers.Dense(horinzon))
+
+        custom_model.compile(loss="mae",
+                             optimizer=tf.keras.optimizers.Adam())
+
+        custom_model.fit(X_train, y_train,
+                         epochs=n_neurons,
+                         batch_size=128,
+                         verbose=0,  # only print 1 line per epoch
+                         validation_data=(X_test, y_test),
+                         #callbacks=[create_model_checkpoint(model_name=custom_model.name)]
+                         )
+        return custom_model
 
     def trainModel(self, inputSize, thetaSize, horizon, nNeurons, nLayers, nStacks, train_dataset, nEpocks,
                    test_dataset):
@@ -209,7 +256,7 @@ class TimeSeriesModel:
     def plot_time_series(self, timesteps, values, format='.', start=0, end=None, label=None):
         """
         Plots a timesteps (a series of points in time) against values (a series of values across timesteps).
-        
+
         Parameters
         ---------
         timesteps : array of timesteps
@@ -246,7 +293,7 @@ class TimeSeriesModel:
         for i in range(window_size):
             df_for_pred[f"Price+{i + 1}"] = df_for_pred["Price"].shift(periods=i + 1)
 
-        # Train model on entire data to make prediction for the next day 
+        # Train model on entire data to make prediction for the next day
         X_all = df_for_pred.drop(["Price"],
                                  axis=1).dropna().to_numpy()  # only want prices, our future model can be a univariate model
         y_all = df_for_pred.dropna()["Price"].to_numpy()
@@ -261,7 +308,7 @@ class TimeSeriesModel:
         dataset_all = dataset_all.batch(batch_size).prefetch(tf.data.AUTOTUNE)
         return [dataset_all, X_all, y_all]
 
-    def makeWinowedDataWithOutSentiment(self, stock_df, window_size, horizon):
+    def makeWindowedDataWithOutSentiment(self, stock_df, window_size, horizon):
         df = pd.DataFrame(stock_df["Close"]).rename(columns={"Close": "Price"})
         df_nbeats = df.copy()
         for i in range(window_size):
@@ -270,7 +317,7 @@ class TimeSeriesModel:
         df_nbeats.drop("Price", axis=1)
         return df_nbeats.dropna()
 
-    def makeWinowedDataWithSentiment(self, stock_df, sentiment_df, window_size, horizon):
+    def makeWindowedDataWithSentiment(self, stock_df, sentiment_df, window_size, horizon):
         df = pd.DataFrame(stock_df["Close"]).rename(columns={"Close": "Price"})
         df_nbeats = df.copy()
         sentiment_df = sentiment_df[sentiment_df.index.dayofweek < 5]
@@ -281,3 +328,7 @@ class TimeSeriesModel:
 
         df_nbeats.drop("Price", axis=1)
         return df_nbeats.dropna()
+
+    def moveSentiment(self, df, n_days=0):
+        df['sentiment'] = df['sentiment'].shift(periods=n_days, fill_value=0)
+        return df

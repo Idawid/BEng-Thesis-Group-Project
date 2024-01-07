@@ -66,12 +66,15 @@ def process_price_forecast(data_request: DataRequest):
             - 'date': Date in the format 'YYYY-MM-DD'
             - 'close_price': Closing price for the date
     """
-    N_EPOCHS = 10
-    N_NEURONS = 64
-    N_LAYERS = 4
+    model_settings = data_request.model_settings
+    N_EPOCHS = int(model_settings.number_of_epochs)
+    N_NEURONS = int(model_settings.number_of_neurons)
+    N_LAYERS = int(model_settings.number_of_layers) 
     N_STACKS = 8
     HORIZON = 1
     WINDOW_SIZE = 7  # 8 with sentiment 7 without
+    if model_settings.nlp_enable_flag:
+        WINDOW_SIZE = WINDOW_SIZE + 1
 
     INPUT_SIZE = WINDOW_SIZE * HORIZON
     THETA_SIZE = INPUT_SIZE + HORIZON
@@ -98,7 +101,22 @@ def process_price_forecast(data_request: DataRequest):
 
     historical_data = yf.download(ticker, start=new_start_date_str, end=end_date_str)
 
-    prepared_data = time_series_model.makeWinowedDataWithOutSentiment(historical_data, WINDOW_SIZE, HORIZON)
+    if model_settings.nlp_enable_flag:
+        news_sentiment_analyzer = NewsSentimentAnalyzer()
+        df_sentiment = news_sentiment_analyzer.calculate_sentiment_df(ticker, start_date_str, end_date_str)
+        df_sentiment.to_csv("generated/final_df.csv")
+        df_sentiment = pd.read_csv("generated/final_df.csv",
+                                   parse_dates=["date"],
+                                   index_col=["date"])
+        df_sentiment = df_sentiment[["sentiment_score"]]
+
+        prepared_data = time_series_model.makeWindowedDataWithSentiment(historical_data, df_sentiment,
+                                                                        WINDOW_SIZE, HORIZON)
+        time_series_model.moveSentiment(df_sentiment, abs(int(model_settings.sentiment_shift_days)))
+
+    else:
+        prepared_data = time_series_model.makeWindowedDataWithOutSentiment(historical_data, WINDOW_SIZE, HORIZON)
+
     X_train, y_train, X_test, y_test = time_series_model.testTrainingSplit(prepared_data)
     train_dataset, test_dataset = time_series_model.prepareDataForTraining(X_train, y_train, X_test, y_test, 1024)
     dataset_all, X_all, y_all = time_series_model.prepareDataForPrediction(prepared_data, 1024, WINDOW_SIZE)
@@ -119,12 +137,20 @@ def process_price_forecast(data_request: DataRequest):
         test_dataset=test_dataset)
     model.save(f"saved_model/model_{ticker}")
 
-    future_forecast = time_series_model.make_future_forecast(
-        values=y_all,
-        model=model,
-        into_future=day_difference,
-        window_size=WINDOW_SIZE
-    )
+    if model_settings.nlp_enable_flag:
+        future_forecast = time_series_model.make_future_forecast_with_sentiment(
+            values=y_all,
+            model=model,
+            into_future=day_difference,
+            window_size=WINDOW_SIZE
+        )
+    else:
+        future_forecast = time_series_model.make_future_forecast_without_sentiment(
+            values=y_all,
+            model=model,
+            into_future=day_difference,
+            window_size=WINDOW_SIZE
+        )
 
     # Get dates corresponding to the forecast
     forecast_dates = pd.date_range(start=date_to_iso, periods=len(future_forecast))

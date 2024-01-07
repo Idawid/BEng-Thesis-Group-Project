@@ -2,7 +2,7 @@ import json
 import pika
 
 from common.constants import Constants
-from common.data_request import DataRequest, MessageType
+from common.data_request import DataRequest, MessageType, ModelSettings
 from ml_backend.ml_backend_utils import process_request
 
 
@@ -28,13 +28,25 @@ class MLBackendRabbitMQConnector:
 
     def callback(self, ch, method, properties, body):
         try:
-            print('update_request', 'MLBackend got', body)
+            print('update_request', '3. MLBackend got', body)
             data = json.loads(body)
+
+            model_settings_data = data['model_settings']
+
+            model_settings = ModelSettings(
+                nlp_enable_flag=model_settings_data.get('nlp_enable_flag'),
+                sentiment_shift_days=model_settings_data.get('sentiment_shift_days'),
+                number_of_neurons=model_settings_data.get('number_of_neurons'),
+                number_of_layers=model_settings_data.get('number_of_layers'),
+                number_of_epochs=model_settings_data.get('number_of_epochs')
+            )
+
             data_request = DataRequest(
                 ticker=data['ticker'],
                 datetime_from=data['datetime_from'],
                 datetime_to=data['datetime_to'],
-                message_type=MessageType.from_string(data['message_type'])
+                message_type=MessageType.from_string(data['message_type']),
+                model_settings=model_settings
             )
 
             processed_data = process_request(data_request)
@@ -47,7 +59,7 @@ class MLBackendRabbitMQConnector:
 
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
-    def send_processed_data(self, processed_data, data_request):
+    def send_processed_data(self, processed_data, data_request: DataRequest):
         """ Send the processed data back via RabbitMQ. """
         message_data = {
             "processed_data": processed_data,
@@ -58,7 +70,7 @@ class MLBackendRabbitMQConnector:
             routing_key=Constants.QUEUE_NAME_RESPOND,
             body=json.dumps(message_data)
         )
-        print("Data processor sends:", json.dumps(message_data))
+        print("4. Data processor sends:", json.dumps(message_data))
 
     def start_processing(self):
         print("Data Processor started. Waiting for requests.")
